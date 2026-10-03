@@ -3,10 +3,12 @@
 <nav aria-label="File tree" class="mt-4 min-h-0 flex-1 overflow-y-auto">
     @foreach (var node in Nodes)
     {
-        <TreeItem Node="node" Depth="0" />
+        <TreeItem Node="node" Depth="0" Selected="Selected" OnSelect="OnSelect" />
     }
 </nav>
 
 @code {
     [Parameter, EditorRequired] public List<TreeNode> Nodes { get; set; } = new();
+    [Parameter] public TreeNode? Selected { get; set; }
+    [Parameter] public EventCallback<TreeNode> OnSelect { get; set; }
 }

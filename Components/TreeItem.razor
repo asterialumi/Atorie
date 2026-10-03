@@ -1,8 +1,9 @@
 <button type="button"
-        @onclick="Toggle"
+        @onclick="Click"
         aria-expanded="@(Node.IsFolder ? Node.IsExpanded.ToString().ToLower() : null)"
-        class="flex w-full items-center gap-3 rounded-md py-1.5 pr-2 text-left font-mono text-sm hover:bg-white/10"
-        style="padding-left:@(8 + Depth * 24)px">
+        aria-current="@(IsSelected ? "true" : null)"
+        class="flex w-full items-center gap-3 rounded-md border-l-4 py-1.5 pr-2 text-left font-mono text-sm @(IsSelected ? "border-accent bg-accent/40" : "border-transparent hover:bg-white/10")"
+        style="padding-left:@(4 + Depth * 24)px">
     <img src="@IconPath" alt="" class="size-5 shrink-0" />
     <span class="truncate">@Node.Name</span>
 </button>
@@ -11,13 +12,17 @@
 {
     @foreach (var child in Node.Children)
     {
-        <TreeItem Node="child" Depth="Depth + 1" />
+        <TreeItem Node="child" Depth="Depth + 1" Selected="Selected" OnSelect="OnSelect" />
     }
 }
 
 @code {
     [Parameter, EditorRequired] public TreeNode Node { get; set; } = default!;
     [Parameter] public int Depth { get; set; }
+    [Parameter] public TreeNode? Selected { get; set; }
+    [Parameter] public EventCallback<TreeNode> OnSelect { get; set; }
+
+    private bool IsSelected => Selected == Node;
 
     private string IconPath => Node.Kind switch
     {
@@ -28,11 +33,15 @@
         _ => "icons/text.svg"
     };
 
-    private void Toggle()
+    private async Task Click()
     {
         if (Node.IsFolder)
         {
             Node.IsExpanded = !Node.IsExpanded;
+        }
+        else
+        {
+            await OnSelect.InvokeAsync(Node);
         }
     }
 }
