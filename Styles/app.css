@@ -1,2 +1,8 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 @source "../**/*.razor";
+
+@theme {
+  --color-void: #0c0c0c;
+  --color-panel: #30253f;
+  --color-muted: #9482ad;
+}
