@@ -6,8 +6,8 @@
 
     <!-- Left 1/4 Segment -->
     <aside class="flex w-1/4 min-w-0 flex-col gap-4">
-        <section class="h-[30%] shrink-0 rounded-2xl bg-panel p-4">
-            profile
+        <section class="shrink-0 rounded-2xl bg-panel p-4">
+            <ProfileCard />
         </section>
         <section class="flex min-h-0 flex-1 flex-col rounded-2xl bg-panel p-4">
             <FileTree Nodes="tree" />
@@ -22,7 +22,7 @@
 </div>
 
 @code {
-    // Placeholder data.
+    // placeholder data. maybe we can transfer this to a database later?
     private readonly List<TreeNode> tree = new()
     {
         new()

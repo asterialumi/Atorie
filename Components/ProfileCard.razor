@@ -1,0 +1,30 @@
+<div class="flex items-center gap-7">
+    <img src="images/avatar.webp" alt="Asteria's avatar" class="w-24 h-18 shrink-0 rounded-2xl object-cover" />
+    <div class="min-w-0">
+        <p class="font-mono text-xs">logged in as</p>
+        <p class="truncate font-display text-2xl font-bold">@Username</p>
+    </div>
+</div>
+
+<dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-mono text-xs">
+    <dt class="font-bold">logged since:</dt>
+    <dd>@DaysSince days ago</dd>
+
+    <dt class="font-bold">current device:</dt>
+    <dd>@Device</dd>
+
+    <dt class="font-bold">address:</dt>
+    <dd class="break-all">@Address</dd>
+</dl>
+
+@code {
+    private const string Username = "Asteria";
+    private const string Device = "PC"; // ARG: hardcoded right now, but it should be able to detect later on.
+    private const string Address = "notyet@shown.com";
+
+    // ARG: "registered" is the birthdate, though this is not 100% accurate :)
+    private static readonly DateOnly Registered = new(2005, 10, 24);
+
+    private static int DaysSince =>
+        DateOnly.FromDateTime(DateTime.Today).DayNumber - Registered.DayNumber;
+}
