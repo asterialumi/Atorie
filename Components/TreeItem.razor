@@ -1,0 +1,38 @@
+<button type="button"
+        @onclick="Toggle"
+        aria-expanded="@(Node.IsFolder ? Node.IsExpanded.ToString().ToLower() : null)"
+        class="flex w-full items-center gap-3 rounded-md py-1.5 pr-2 text-left font-mono text-sm hover:bg-white/10"
+        style="padding-left:@(8 + Depth * 24)px">
+    <img src="@IconPath" alt="" class="size-5 shrink-0" />
+    <span class="truncate">@Node.Name</span>
+</button>
+
+@if (Node.IsFolder && Node.IsExpanded)
+{
+    @foreach (var child in Node.Children)
+    {
+        <TreeItem Node="child" Depth="Depth + 1" />
+    }
+}
+
+@code {
+    [Parameter, EditorRequired] public TreeNode Node { get; set; } = default!;
+    [Parameter] public int Depth { get; set; }
+
+    private string IconPath => Node.Kind switch
+    {
+        NodeKind.Folder => "icons/folder.svg",
+        NodeKind.Image => "icons/image.svg",
+        NodeKind.Text => "icons/text.svg",
+        NodeKind.Executable => "icons/exe.svg",
+        _ => "icons/text.svg"
+    };
+
+    private void Toggle()
+    {
+        if (Node.IsFolder)
+        {
+            Node.IsExpanded = !Node.IsExpanded;
+        }
+    }
+}

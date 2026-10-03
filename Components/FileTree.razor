@@ -1,0 +1,12 @@
+<h2 class="font-mono text-sm text-muted">CHAPTERS // FILE TREE</h2>
+
+<nav aria-label="File tree" class="mt-4 min-h-0 flex-1 overflow-y-auto">
+    @foreach (var node in Nodes)
+    {
+        <TreeItem Node="node" Depth="0" />
+    }
+</nav>
+
+@code {
+    [Parameter, EditorRequired] public List<TreeNode> Nodes { get; set; } = new();
+}

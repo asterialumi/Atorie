@@ -9,8 +9,8 @@
         <section class="h-[30%] shrink-0 rounded-2xl bg-panel p-4">
             profile
         </section>
-        <section class="min-h-0 flex-1 rounded-2xl bg-panel p-4">
-            file tree
+        <section class="flex min-h-0 flex-1 flex-col rounded-2xl bg-panel p-4">
+            <FileTree Nodes="tree" />
         </section>
     </aside>
 
@@ -20,3 +20,41 @@
     </main>
 
 </div>
+
+@code {
+    // Placeholder data.
+    private readonly List<TreeNode> tree = new()
+    {
+        new()
+        {
+            Name = "01_illustrations/", Kind = NodeKind.Folder, IsExpanded = true,
+            Children =
+            {
+                new() { Name = "100_days_drawing/", Kind = NodeKind.Folder },
+                new() { Name = "painting.png", Kind = NodeKind.Image },
+                new() { Name = "notes.txt", Kind = NodeKind.Text }
+            }
+        },
+        new()
+        {
+            Name = "02_literary/", Kind = NodeKind.Folder,
+            Children =
+            {
+                new() { Name = "fourth_wall.txt", Kind = NodeKind.Text },
+                new() { Name = "luminary_heart.txt", Kind = NodeKind.Text }
+            }
+        },
+        new()
+        {
+            Name = "03_projects/", Kind = NodeKind.Folder,
+            Children =
+            {
+                new() { Name = "ame.exe", Kind = NodeKind.Executable },
+                new() { Name = "kara.exe", Kind = NodeKind.Executable },
+                new() { Name = "encore.exe", Kind = NodeKind.Executable }
+            }
+        },
+        new() { Name = "04_interests/", Kind = NodeKind.Folder },
+        new() { Name = "05_external/", Kind = NodeKind.Folder }
+    };
+}
