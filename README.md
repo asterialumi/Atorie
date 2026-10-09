@@ -12,5 +12,5 @@ Tailwind is not included in this repository. In order to set it up:
 3. From the root, run this watch command while developing:
 
 ```
-.\Tools\tailwindcss.exe -i .\Styles\app.css -o .\wwwroot\css\tailwind.css --watch
+dotnet watch
 ```
